@@ -1,0 +1,97 @@
+Dava Virgio Kertawijaya
+00000056848
+
+1. SUB-CLO-1 Students are able to practice basic R programming (P3) and SUB-CLO-2 Students are able to practice R programming for descriptive statistics (P3) (Weight 30%).
+Question 1:
+a. Make an analysis about students’ IPS and their Years as well as the books they read using boxplot. Make all six diagrams into one big picture (2x3) all together
+b. Find the best boxplot for each diagram and change it to green color. 
+
+Answer
+#a---------
+
+#import data
+library(readxl)
+onsite_StudentsIPS <- read_excel("C:/Users/62812/OneDrive/OneDrive - Universitas Multimedia Nusantara/Dokumen/MatKul Semester 2/UTS/onsite-StudentsIPS.xlsx")
+View(onsite_StudentsIPS)
+
+#Years siswa diubah menjadi factor
+onsite_StudentsIPS$Years <- factor(onsite_StudentsIPS$Years)
+onsite_StudentsIPS$Years
+
+#Books siswa diubah menjadi factor
+onsite_StudentsIPS$Books <- factor(onsite_StudentsIPS$Books)
+onsite_StudentsIPS$Books
+
+#analisis data menggunakan boxplot
+par(mfrow = c(3,2))
+par(mfrow = c(1,1))
+
+boxplot(onsite_StudentsIPS$ipsms1 ~ onsite_StudentsIPS$Years, main = "IP Semester 1")
+boxplot(onsite_StudentsIPS$ipsms1 ~ onsite_StudentsIPS$Books, main = "Hubungan Books dengan IP Semester 1")
+boxplot(onsite_StudentsIPS$ipsms2 ~ onsite_StudentsIPS$Years, main = "IP Semester 2", col = c("green", "white", "white", "white"))
+boxplot(onsite_StudentsIPS$ipsms2 ~ onsite_StudentsIPS$Books, main = "Hubungan Books dengan IP Semester 2")
+boxplot(onsite_StudentsIPS$ipsms3 ~ onsite_StudentsIPS$Years, main = "IP Semester 3")
+boxplot(onsite_StudentsIPS$ipsms3 ~ onsite_StudentsIPS$Books, main = "Hubungan Books dengan IP Semester 3")
+
+#b-----------
+boxplot(onsite_StudentsIPS$ipsms2 ~ onsite_StudentsIPS$Years, main = "IP Semester 2", col = c("green", "white", "white", "white"))
+
+
+2. Sub-CLO-2 Students are able to practice R programming for descriptive statistics (P3) and SUB-CLO-5 Students are able to combine several R programs to analyze data (P4). (Weight 30%)
+Question 2:
+a. Find correlation amongst all IPS, 
+b. Analysis them using scatter plots, make them into one big picture (1x3) all together.
+c. Give green color to the strong correlation
+
+Answer
+#a------
+
+#hubungan korelasi semua IPS
+cor(onsite_StudentsIPS$ipsms1, onsite_StudentsIPS$ipsms2, method = "pearson")
+cor(onsite_StudentsIPS$ipsms1, onsite_StudentsIPS$ipsms3, method = "pearson")
+cor(onsite_StudentsIPS$ipsms2, onsite_StudentsIPS$ipsms3, method = "pearson")
+
+#b------
+#membuat scatter plot
+par(mfrow = c(3,1))
+par(mfrow = c(1,1))
+
+title <- "Plot IP Semester 1"
+plot(onsite_StudentsIPS$ipsms1, main = title)
+
+title <- "Plot IP Semester 2"
+plot(onsite_StudentsIPS$ipsms2, main = title)
+
+title <- "Plot IP Semester 3"
+plot(onsite_StudentsIPS$ipsms3, main = title)
+
+#c------
+title <- "Plot IP Semester 3"
+plot(onsite_StudentsIPS$ipsms3, main = title , col = 'green')
+
+
+3. Sub-CLO-2 Students are able to practice R programming for descriptive statistics (P3) and SUB-CLO-5 Students are able to combine several R programs to analyze data (P4). (Weight 40%)
+Question 3:
+a. Analysis for each IPS whether it is normal distribution of not, by using Shapiro-Wilk.
+b. Draw a histogram for each IPS, 
+c. Change the histogram color to green if it is normally distributed.
+
+Answer
+#a------
+(ipsms1 <- stats::shapiro.test(onsite_StudentsIPS$ipsms1))
+(ipsms2 <- stats::shapiro.test(onsite_StudentsIPS$ipsms2))
+(ipsms3 <- stats::shapiro.test(onsite_StudentsIPS$ipsms3))
+
+#b------
+title <- "Histogram IP Semester 1"
+hist(onsite_StudentsIPS$ipsms1, main = title)
+
+title <- "Histogram IP Semester 2"
+hist(onsite_StudentsIPS$ipsms2, main = title)
+
+title <- "Histogram IP Semester 3"
+hist(onsite_StudentsIPS$ipsms3, main = title)
+
+#c------
+title <- "Histogram IP Semester 1"
+hist(onsite_StudentsIPS$ipsms1, main = title, col = 'green')
